@@ -61,26 +61,26 @@ class DisplayService:
         pyray.end_drawing()
 
     def get_cell_size(self):
-        """Gets the video screen's cell size.
+        """Gets the display screen's cell size.
 
         Returns:
-            Grid: The video screen's cell size.
+            Grid: The display screen's cell size.
         """
         return self._cell_size
 
     def get_height(self):
-        """Gets the video screen's height.
+        """Gets the display screen's height.
 
         Returns:
-            Grid: The video screen's height.
+            Grid: The display screen's height.
         """
         return self._height
 
     def get_width(self):
-        """Gets the video screen's width.
+        """Gets the display screen's width.
 
         Returns:
-            Grid: The video screen's width.
+            Grid: The display screen's width.
         """
         return self._width
 

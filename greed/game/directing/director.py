@@ -8,16 +8,17 @@ class Director:
 
     Attributes:
         _keyboard_service (KeyboardService): For getting directional input.
-        _video_service (VideoService): For providing video output.
+        _display_service (DisplayService): For providing display output.
     """
 
     def __init__(self, keyboard_service, display_service):
         self._SCORE = 600
-        """Constructs a new Director using the specified keyboard and video services.
+        self.__game_over = False
+        """Constructs a new Director using the specified keyboard and display services.
         
         Args:
             keyboard_service (KeyboardService): An instance of KeyboardService.
-            video_service (VideoService): An instance of VideoService.
+            display_service (DisplayService): An instance of DisplayService.
         """
         self._keyboard_service = keyboard_service
         self._display_service = display_service
@@ -33,6 +34,8 @@ class Director:
             self._get_inputs(cast)
             self._do_updates(cast)
             self._do_outputs(cast)
+            if self._is_over():
+                self.__game_over = False
 
         self._display_service.close_window()
 
@@ -43,7 +46,7 @@ class Director:
             cast (Cast): The cast of actors.
         """
         robot = cast.get_first_actor("robots")
-        velocity = self._display_service.get_direction()
+        velocity = self._keyboard_service.get_direction()
         robot.set_velocity(velocity)
 
     def _do_updates(self, cast):
@@ -80,8 +83,13 @@ class Director:
                 banner.set_text(message)
                 cast.remove_actor("rocks", rock)
                 self._SCORE -= 1
+                if self._SCORE == 0:
+                    self.__game_over = True
 
         banner.set_text("Score: " + str(self._SCORE))
+
+    def _is_over(self):
+        return self.__game_over
 
     def _do_outputs(self, cast):
         """Draws the actors on the screen.
