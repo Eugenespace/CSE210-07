@@ -56,7 +56,7 @@ class Director:
         artifacts = cast.get_actors("artifacts")
         rocks = cast.get_actors("rocks")
 
-        banner.set_text("Score: " + str(self._SCORE)) 
+        banner.set_text("Score: " + str(self._SCORE)) #
         max_x = self._video_service.get_width()
         max_y = self._video_service.get_height()
         robot.move_next(max_x, max_y)
@@ -67,22 +67,27 @@ class Director:
            
             
             if robot.get_position().equals(artifact.get_position()):
+                # message = artifact.get_message()
                 message = self._SCORE
                 banner.set_text(message)
                 cast.remove_actor("artifacts", artifact)  
                 self._SCORE += 1   
-  
+
+                # cast.remove_actor("artifacts", artifact.rock)  
+                # self._SCORE -= 1   
 
         for rock in rocks:
             rock.set_velocity(Point(0,5))
             rock.move_next(max_x, max_y)
-
             if robot.get_position().equals(rock.get_position()):
+                # message = artifact.get_message()
                 message = self._SCORE
                 banner.set_text(message)
                 cast.remove_actor("rocks", rock)  
                 self._SCORE -= 1   
-          
+
+                # cast.remove_actor("artifacts", artifact.rock)  
+                    # self._SCORE -= -1           
 
         banner.set_text("Score: " + str(self._SCORE))               
         

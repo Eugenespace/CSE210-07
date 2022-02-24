@@ -47,7 +47,8 @@ def main():
     # x = int(MAX_X / 2)
     # y = int(MAX_Y / 2)
     x = int(MAX_X / 2)
-    y = int(MAX_Y-99)
+    # different position. needs to go to the bottom of the page
+    y = int(MAX_Y-95)
     position = Point(x, y)
 
     robot = Actor()
@@ -58,6 +59,10 @@ def main():
     robot.set_position(position)
     cast.add_actor("robots", robot)
 
+    # create the artifacts - Here is where they are pulling from Data
+    # with open(DATA_PATH) as file:
+    #     data = file.read()
+    #     messages = data.splitlines()
 
     messages = "Score: "
     
@@ -65,6 +70,9 @@ def main():
     for n in range(DEFAULT_ARTIFACTS):
         # text = chr(random.randint(33, 126))
         text = "*"  # me: changed the symbols to display. CHR() = character function
+        # text2 = "[]" #box character?
+        # this needs to get the points from a function and display here instead of messages from a file
+        # message = messages[n]
         message = messages  
 
         x = random.randint(1, COLS - 1)
@@ -89,9 +97,11 @@ def main():
     # adding a second artifact. TESTING: it works! just has 2 Found Kitten messages. One for each symbol.
 
     for n in range(DEFAULT_ARTIFACTS2):
-        # text2 = chr(9634)
-        text2 = str("█")
-          # box character? 
+        # text = chr(random.randint(33, 126))
+        # text = "*" #me: changed the symbols to display. CHR() = character function
+        text2 = chr(2588)  # box character?
+        # this needs to get the points from a function and display here instead of messages from a file
+        # message = messages[n]
         message = messages
 
         x = random.randint(1, COLS - 1)
