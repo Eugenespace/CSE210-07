@@ -36,8 +36,7 @@ class Director:
             self._do_outputs(cast)
             if self._is_over():
                 self.__game_over = False
-
-        self._display_service.close_window()
+                self._display_service.close_window()
 
     def _get_inputs(self, cast):
         """Gets directional input from the keyboard and applies it to the robot.
@@ -87,6 +86,8 @@ class Director:
                     self.__game_over = True
 
         banner.set_text("Score: " + str(self._SCORE))
+
+    # The game over
 
     def _is_over(self):
         return self.__game_over
