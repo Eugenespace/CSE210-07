@@ -11,7 +11,7 @@ class Director:
         _video_service (VideoService): For providing video output.
     """
 
-    def __init__(self, keyboard_service, video_service):
+    def __init__(self, keyboard_service, display_service):
         self._SCORE = 600
         """Constructs a new Director using the specified keyboard and video services.
         
@@ -20,7 +20,7 @@ class Director:
             video_service (VideoService): An instance of VideoService.
         """
         self._keyboard_service = keyboard_service
-        self._video_service = video_service
+        self._display_service = display_service
 
     def start_game(self, cast):
         """Starts the game using the given cast. Runs the main game loop.
@@ -28,13 +28,13 @@ class Director:
         Args:
             cast (Cast): The cast of actors.
         """
-        self._video_service.open_window()
-        while self._video_service.is_window_open():
+        self._display_service.open_window()
+        while self._display_service.is_window_open():
             self._get_inputs(cast)
             self._do_updates(cast)
             self._do_outputs(cast)
 
-        self._video_service.close_window()
+        self._display_service.close_window()
 
     def _get_inputs(self, cast):
         """Gets directional input from the keyboard and applies it to the robot.
@@ -43,7 +43,7 @@ class Director:
             cast (Cast): The cast of actors.
         """
         robot = cast.get_first_actor("robots")
-        velocity = self._keyboard_service.get_direction()
+        velocity = self._display_service.get_direction()
         robot.set_velocity(velocity)
 
     def _do_updates(self, cast):
@@ -58,8 +58,8 @@ class Director:
         rocks = cast.get_actors("rocks")
 
         banner.set_text("Score: " + str(self._SCORE))
-        max_x = self._video_service.get_width()
-        max_y = self._video_service.get_height()
+        max_x = self._display_service.get_width()
+        max_y = self._display_service.get_height()
         robot.move_next(max_x, max_y)
 
         for artifact in artifacts:
@@ -89,7 +89,7 @@ class Director:
         Args:
             cast (Cast): The cast of actors.
         """
-        self._video_service.clear_buffer()
+        self._display_service.clear_buffer()
         actors = cast.get_all_actors()
-        self._video_service.draw_actors(actors)
-        self._video_service.flush_buffer()
+        self._display_service.draw_actors(actors)
+        self._display_service.flush_buffer()

@@ -1,13 +1,13 @@
 import pyray
 
 
-class VideoService:
+class DisplayService:
     """Outputs the game state. The responsibility of the class of objects is to draw the game state 
     on the screen. 
     """
 
     def __init__(self, caption, width, height, cell_size, frame_rate, debug=False):
-        """Constructs a new VideoService using the specified debug mode.
+        """Constructs a new DisplayService using the specified debug mode.
 
         Args:
             debug (bool): whether or not to draw in debug mode.

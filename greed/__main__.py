@@ -8,7 +8,7 @@ from game.casting.cast import Cast
 from game.directing.director import Director
 
 from game.services.keyboard_service import KeyboardService
-from game.services.display_service import VideoService
+from game.services.display_service import DisplayService
 
 from game.shared.color import Color
 from game.shared.point import Point
@@ -112,9 +112,9 @@ def main():
 
     # start the game
     keyboard_service = KeyboardService(CELL_SIZE)
-    video_service = VideoService(CAPTION.format(
+    display_service = DisplayService(CAPTION.format(
         CENTER), MAX_X, MAX_Y, CELL_SIZE, FRAME_RATE)
-    director = Director(keyboard_service, video_service)
+    director = Director(keyboard_service, display_service)
     director.start_game(cast)
 
 
