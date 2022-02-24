@@ -1,3 +1,5 @@
+from game.shared.point import Point
+
 class Director:
     """A person who directs the game. 
     
@@ -57,9 +59,12 @@ class Director:
         robot.move_next(max_x, max_y)
         
         for artifact in artifacts:
+            artifact.set_velocity(Point(0,5))
+            artifact.move_next(max_x, max_y)
+            
             if robot.get_position().equals(artifact.get_position()):
                 message = artifact.get_message()
-                banner.set_text(message)    
+                banner.set_text(message)
         
     def _do_outputs(self, cast):
         """Draws the actors on the screen.
