@@ -1,8 +1,9 @@
 from game.shared.point import Point
 
+
 class Director:
     """A person who directs the game. 
-    
+
     The responsibility of a Director is to control the sequence of play.
 
     Attributes:
@@ -20,7 +21,7 @@ class Director:
         """
         self._keyboard_service = keyboard_service
         self._video_service = video_service
-        
+
     def start_game(self, cast):
         """Starts the game using the given cast. Runs the main game loop.
 
@@ -32,22 +33,22 @@ class Director:
             self._get_inputs(cast)
             self._do_updates(cast)
             self._do_outputs(cast)
-            
+
         self._video_service.close_window()
 
     def _get_inputs(self, cast):
         """Gets directional input from the keyboard and applies it to the robot.
-        
+
         Args:
             cast (Cast): The cast of actors.
         """
         robot = cast.get_first_actor("robots")
         velocity = self._keyboard_service.get_direction()
-        robot.set_velocity(velocity)        
+        robot.set_velocity(velocity)
 
     def _do_updates(self, cast):
         """Updates the robot's position and resolves any collisions with artifacts.
-        
+
         Args:
             cast (Cast): The cast of actors.
         """
@@ -56,44 +57,35 @@ class Director:
         artifacts = cast.get_actors("artifacts")
         rocks = cast.get_actors("rocks")
 
-        banner.set_text("Score: " + str(self._SCORE)) #
+        banner.set_text("Score: " + str(self._SCORE))
         max_x = self._video_service.get_width()
         max_y = self._video_service.get_height()
         robot.move_next(max_x, max_y)
-        
+
         for artifact in artifacts:
-            artifact.set_velocity(Point(0,5))
+            artifact.set_velocity(Point(0, 5))
             artifact.move_next(max_x, max_y)
-           
-            
+
             if robot.get_position().equals(artifact.get_position()):
-                # message = artifact.get_message()
                 message = self._SCORE
                 banner.set_text(message)
-                cast.remove_actor("artifacts", artifact)  
-                self._SCORE += 1   
-
-                # cast.remove_actor("artifacts", artifact.rock)  
-                # self._SCORE -= 1   
+                cast.remove_actor("artifacts", artifact)
+                self._SCORE += 1
 
         for rock in rocks:
-            rock.set_velocity(Point(0,5))
+            rock.set_velocity(Point(0, 5))
             rock.move_next(max_x, max_y)
             if robot.get_position().equals(rock.get_position()):
-                # message = artifact.get_message()
                 message = self._SCORE
                 banner.set_text(message)
-                cast.remove_actor("rocks", rock)  
-                self._SCORE -= 1   
+                cast.remove_actor("rocks", rock)
+                self._SCORE -= 1
 
-                # cast.remove_actor("artifacts", artifact.rock)  
-                    # self._SCORE -= -1           
+        banner.set_text("Score: " + str(self._SCORE))
 
-        banner.set_text("Score: " + str(self._SCORE))               
-        
     def _do_outputs(self, cast):
         """Draws the actors on the screen.
-        
+
         Args:
             cast (Cast): The cast of actors.
         """
