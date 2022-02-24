@@ -11,6 +11,7 @@ class Director:
     """
 
     def __init__(self, keyboard_service, video_service):
+        self._SCORE = 600
         """Constructs a new Director using the specified keyboard and video services.
         
         Args:
@@ -31,6 +32,7 @@ class Director:
             self._get_inputs(cast)
             self._do_updates(cast)
             self._do_outputs(cast)
+            
         self._video_service.close_window()
 
     def _get_inputs(self, cast):
@@ -52,8 +54,9 @@ class Director:
         banner = cast.get_first_actor("banners")
         robot = cast.get_first_actor("robots")
         artifacts = cast.get_actors("artifacts")
+        rocks = cast.get_actors("rocks")
 
-        banner.set_text("")
+        banner.set_text("Score: " + str(self._SCORE)) #
         max_x = self._video_service.get_width()
         max_y = self._video_service.get_height()
         robot.move_next(max_x, max_y)
@@ -61,10 +64,32 @@ class Director:
         for artifact in artifacts:
             artifact.set_velocity(Point(0,5))
             artifact.move_next(max_x, max_y)
+           
             
             if robot.get_position().equals(artifact.get_position()):
-                message = artifact.get_message()
+                # message = artifact.get_message()
+                message = self._SCORE
                 banner.set_text(message)
+                cast.remove_actor("artifacts", artifact)  
+                self._SCORE += 1   
+
+                # cast.remove_actor("artifacts", artifact.rock)  
+                # self._SCORE -= 1   
+
+        for rock in rocks:
+            rock.set_velocity(Point(0,5))
+            rock.move_next(max_x, max_y)
+            if robot.get_position().equals(rock.get_position()):
+                # message = artifact.get_message()
+                message = self._SCORE
+                banner.set_text(message)
+                cast.remove_actor("rocks", rock)  
+                self._SCORE -= 1   
+
+                # cast.remove_actor("artifacts", artifact.rock)  
+                    # self._SCORE -= -1           
+
+        banner.set_text("Score: " + str(self._SCORE))               
         
     def _do_outputs(self, cast):
         """Draws the actors on the screen.
