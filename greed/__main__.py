@@ -8,7 +8,7 @@ from game.casting.cast import Cast
 from game.directing.director import Director
 
 from game.services.keyboard_service import KeyboardService
-from game.services.video_service import VideoService
+from game.services.display_service import VideoService
 
 from game.shared.color import Color
 from game.shared.point import Point
@@ -19,7 +19,6 @@ MAX_X = 900
 MAX_Y = 600
 CELL_SIZE = 15
 FONT_SIZE = 20
-# POSITION = 500
 CENTER = "center"
 COLS = 60
 ROWS = 40
@@ -44,8 +43,6 @@ def main():
     cast.add_actor("banners", banner)
 
     # create the robot
-    # x = int(MAX_X / 2)
-    # y = int(MAX_Y / 2)
     x = int(MAX_X / 2)
     # different position. needs to go to the bottom of the page
     y = int(MAX_Y-95)
@@ -60,20 +57,12 @@ def main():
     cast.add_actor("robots", robot)
 
     # create the artifacts - Here is where they are pulling from Data
-    # with open(DATA_PATH) as file:
-    #     data = file.read()
-    #     messages = data.splitlines()
-
     messages = "Score: "
-    
 
     for n in range(DEFAULT_ARTIFACTS):
-        # text = chr(random.randint(33, 126))
         text = "*"  # me: changed the symbols to display. CHR() = character function
-        # text2 = "[]" #box character?
         # this needs to get the points from a function and display here instead of messages from a file
-        # message = messages[n]
-        message = messages  
+        message = messages
 
         x = random.randint(1, COLS - 1)
         y = random.randint(1, ROWS - 1)
@@ -97,11 +86,9 @@ def main():
     # adding a second artifact. TESTING: it works! just has 2 Found Kitten messages. One for each symbol.
 
     for n in range(DEFAULT_ARTIFACTS2):
-        # text = chr(random.randint(33, 126))
         # text = "*" #me: changed the symbols to display. CHR() = character function
         text2 = chr(2588)  # box character?
         # this needs to get the points from a function and display here instead of messages from a file
-        # message = messages[n]
         message = messages
 
         x = random.randint(1, COLS - 1)
@@ -125,7 +112,8 @@ def main():
 
     # start the game
     keyboard_service = KeyboardService(CELL_SIZE)
-    video_service = VideoService(CAPTION.format(CENTER), MAX_X, MAX_Y, CELL_SIZE, FRAME_RATE)
+    video_service = VideoService(CAPTION.format(
+        CENTER), MAX_X, MAX_Y, CELL_SIZE, FRAME_RATE)
     director = Director(keyboard_service, video_service)
     director.start_game(cast)
 
