@@ -1,5 +1,5 @@
 from game.shared.point import Point
-
+from game.casting.restorer import Restorer
 
 class Director:
     """A person who directs the game. 
@@ -58,13 +58,30 @@ class Director:
         robot = cast.get_first_actor("robots")
         artifacts = cast.get_actors("artifacts")
         rocks = cast.get_actors("rocks")
+        its_alive = Restorer()
+
+        
+        #artifact_count = cast.get_cast_count("artifacts")
+        #print(f"OUTSIDE LOOP COUNT = {artifact_count}")
 
         banner.set_text("Score: " + str(self._SCORE))
         max_x = self._display_service.get_width()
         max_y = self._display_service.get_height()
         robot.move_next(max_x, max_y)
+        artifact_count = 0
+        rock_count = 0
+        a = 0
+        r = 0
 
         for artifact in artifacts:
+            artifact_count +=1
+
+        for rock in rocks:
+            rock_count += 1
+
+
+        for artifact in artifacts:
+            a += 1
             artifact.set_velocity(Point(0, 5))
             artifact.move_next(max_x, max_y)
 
@@ -72,18 +89,36 @@ class Director:
                 message = self._SCORE
                 banner.set_text(message)
                 cast.remove_actor("artifacts", artifact)
+                a -= 1
                 self._SCORE += 1
 
         for rock in rocks:
+            r += 1
             rock.set_velocity(Point(0, 5))
             rock.move_next(max_x, max_y)
             if robot.get_position().equals(rock.get_position()):
                 message = self._SCORE
                 banner.set_text(message)
                 cast.remove_actor("rocks", rock)
+                r -= 1
                 self._SCORE -= 1
+                
                 if self._SCORE == 0:
                     self.__game_over = True
+
+        if a >= artifact_count and r >= rock_count:
+            pass
+        elif a < artifact_count and r < rock_count:
+            its_alive.resurrect_artifact(cast = cast, message = message)   
+            print(f"Added artifact Total: {artifact_count} a: {a}")
+            its_alive.resurrect_artifact2(cast = cast, message = message)
+        
+        elif a == artifact_count and r < rock_count:
+            its_alive.resurrect_artifact2(cast = cast, message = message)
+        
+        elif a < artifact_count and r == rock_count:
+            its_alive.resurrect_artifact(cast = cast, message = message) 
+        
 
         banner.set_text("Score: " + str(self._SCORE))
 
