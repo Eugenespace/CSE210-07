@@ -39,23 +39,23 @@ class Director:
                 self._display_service.close_window()
 
     def _get_inputs(self, cast):
-        """Gets directional input from the keyboard and applies it to the robot.
+        """Gets directional input from the keyboard and applies it to the player.
 
         Args:
             cast (Cast): The cast of actors.
         """
-        robot = cast.get_first_actor("robots")
+        player = cast.get_first_actor("players")
         velocity = self._keyboard_service.get_direction()
-        robot.set_velocity(velocity)
+        player.set_velocity(velocity)
 
     def _do_updates(self, cast):
-        """Updates the robot's position and resolves any collisions with artifacts.
+        """Updates the player's position and resolves any collisions with artifacts.
 
         Args:
             cast (Cast): The cast of actors.
         """
         banner = cast.get_first_actor("banners")
-        robot = cast.get_first_actor("robots")
+        player = cast.get_first_actor("players")
         artifacts = cast.get_actors("artifacts")
         rocks = cast.get_actors("rocks")
         its_alive = Restorer()
@@ -67,7 +67,7 @@ class Director:
         banner.set_text("Score: " + str(self._SCORE))
         max_x = self._display_service.get_width()
         max_y = self._display_service.get_height()
-        robot.move_next(max_x, max_y)
+        player.move_next(max_x, max_y)
         artifact_count = 0
         rock_count = 0
         a = 0
@@ -85,7 +85,7 @@ class Director:
             artifact.set_velocity(Point(0, 5))
             artifact.move_next(max_x, max_y)
 
-            if robot.get_position().equals(artifact.get_position()):
+            if player.get_position().equals(artifact.get_position()):
                 message = self._SCORE
                 banner.set_text(message)
                 cast.remove_actor("artifacts", artifact)
@@ -96,7 +96,7 @@ class Director:
             r += 1
             rock.set_velocity(Point(0, 5))
             rock.move_next(max_x, max_y)
-            if robot.get_position().equals(rock.get_position()):
+            if player.get_position().equals(rock.get_position()):
                 message = self._SCORE
                 banner.set_text(message)
                 cast.remove_actor("rocks", rock)

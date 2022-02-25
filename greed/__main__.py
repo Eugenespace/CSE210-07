@@ -45,19 +45,19 @@ def main():
     banner.set_position(Point(CELL_SIZE, 0))
     cast.add_actor("banners", banner)
 
-    # create the robot
+    # create the player
     x = int(MAX_X / 2)
     # different position. needs to go to the bottom of the page
     y = int(MAX_Y-95)
     position = Point(x, y)
 
-    robot = Actor()
-    robot.set_text('''Ü''')  # the moving guy
-    robot.set_font_size(PLAYER_SIZE)
-    robot.set_color(WHITE)
+    player = Actor()
+    player.set_text('''Ü''')  # the moving guy
+    player.set_font_size(PLAYER_SIZE)
+    player.set_color(WHITE)
     # may change this to keep player at the bottom of the screen only
-    robot.set_position(position)
-    cast.add_actor("robots", robot)
+    player.set_position(position)
+    cast.add_actor("players", player)
 
     # create the artifacts - Here is where they are pulling from Data
     messages = "Score: "
