@@ -19,6 +19,9 @@ MAX_X = 900
 MAX_Y = 600
 CELL_SIZE = 15
 FONT_SIZE = 20
+PLAYER_SIZE = 25
+GEM_SIZE = 25
+ROCK_SIZE = 27
 CENTER = "center"
 COLS = 60
 ROWS = 40
@@ -49,8 +52,8 @@ def main():
     position = Point(x, y)
 
     robot = Actor()
-    robot.set_text("#")  # the moving guy
-    robot.set_font_size(FONT_SIZE)
+    robot.set_text('''Ü''')  # the moving guy
+    robot.set_font_size(PLAYER_SIZE)
     robot.set_color(WHITE)
     # may change this to keep player at the bottom of the screen only
     robot.set_position(position)
@@ -77,17 +80,19 @@ def main():
         artifact = Artifact()
         artifact.set_text(text)
         # artifact.set_text(text2)
-        artifact.set_font_size(FONT_SIZE)
+        artifact.set_font_size(GEM_SIZE)
         artifact.set_color(color)
         artifact.set_position(position)
         artifact.set_message(message)
         cast.add_actor("artifacts", artifact)
+        
+        
 
     # adding a second artifact. TESTING: it works! just has 2 Found Kitten messages. One for each symbol.
 
     for n in range(DEFAULT_ARTIFACTS2):
         # text = "*" #me: changed the symbols to display. CHR() = character function
-        text2 = chr(2588)  # box character?
+        text2 = "®" #chr(2588)  # box character?
         # this needs to get the points from a function and display here instead of messages from a file
         message = messages
 
@@ -99,12 +104,12 @@ def main():
         r = random.randint(0, 255)
         g = random.randint(0, 255)
         b = random.randint(0, 255)
-        color = Color(r, g, b)
+        color = Color(129, 156, 161)
 
         rock = Artifact()
         # artifact.set_text(text)
         rock.set_text(text2)
-        rock.set_font_size(FONT_SIZE)
+        rock.set_font_size(ROCK_SIZE)
         rock.set_color(color)
         rock.set_position(position)
         rock.set_message(message)

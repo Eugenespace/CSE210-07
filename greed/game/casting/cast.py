@@ -73,3 +73,11 @@ class Cast:
         """
         if group in self._actors:
             self._actors[group].remove(actor)
+
+    def get_cast_count(self, group):
+        count = 0
+        if group in self._actors:
+            for each in group:
+                count += 1
+        
+        return count
