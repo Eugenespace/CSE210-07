@@ -60,11 +60,6 @@ class Director:
         rocks = cast.get_actors("rocks")
         its_alive = Restorer()
 
-        
-        #artifact_count = cast.get_cast_count("artifacts")
-        #print(f"OUTSIDE LOOP COUNT = {artifact_count}")
-
-        banner.set_text("Score: " + str(self._SCORE))
         max_x = self._display_service.get_width()
         max_y = self._display_service.get_height()
         player.move_next(max_x, max_y)
@@ -86,8 +81,6 @@ class Director:
             artifact.move_next(max_x, max_y)
 
             if player.get_position().equals(artifact.get_position()):
-                message = self._SCORE
-                banner.set_text(message)
                 cast.remove_actor("artifacts", artifact)
                 a -= 1
                 self._SCORE += 1
@@ -97,8 +90,6 @@ class Director:
             rock.set_velocity(Point(0, 5))
             rock.move_next(max_x, max_y)
             if player.get_position().equals(rock.get_position()):
-                message = self._SCORE
-                banner.set_text(message)
                 cast.remove_actor("rocks", rock)
                 r -= 1
                 self._SCORE -= 1
@@ -106,19 +97,10 @@ class Director:
                 if self._SCORE == 0:
                     self.__game_over = True
 
-        if a >= artifact_count and r >= rock_count:
-            pass
-        elif a < artifact_count and r < rock_count:
-            its_alive.resurrect_artifact(cast = cast, message = message)   
-            print(f"Added artifact Total: {artifact_count} a: {a}")
-            its_alive.resurrect_artifact2(cast = cast, message = message)
-        
-        elif a == artifact_count and r < rock_count:
-            its_alive.resurrect_artifact2(cast = cast, message = message)
-        
-        elif a < artifact_count and r == rock_count:
-            its_alive.resurrect_artifact(cast = cast, message = message) 
-        
+        if a < artifact_count:
+            its_alive.resurrect_artifact(cast = cast)
+        if r < rock_count:
+            its_alive.resurrect_artifact2(cast = cast)
 
         banner.set_text("Score: " + str(self._SCORE))
 
