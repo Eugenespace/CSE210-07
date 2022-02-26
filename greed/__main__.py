@@ -30,7 +30,7 @@ def main():
     cast.add_actor("banners", banner)
 
     # create the player
-    # The gameconstants MAX_X MAX_Y the original value an inheritances
+    # The gameconstants MAX_X MAX_Y the original value change an inheritances
     x = int(gameconstants.MAX_X / 2)
     # different position. needs to go to the bottom of the page
     y = int(gameconstants.MAX_Y / 1.1)
@@ -51,7 +51,7 @@ def main():
         text = "*"  # me: changed the symbols to display. CHR() = character function
         # this needs to get the points from a function and display here instead of messages from a file
         message = messages
-        # The gameconstants COLS and ROWS change the original value an inheritances
+        # The gameconstants COLS and ROWS change the original value change an inheritances
         x = random.randint(1, gameconstants.COLS - 1)
         y = random.randint(1, gameconstants.ROWS - 1)
         position = Point(x, y)
@@ -78,7 +78,7 @@ def main():
         text2 = "®"  # chr(2588)  # box character?
         # this needs to get the points from a function and display here instead of messages from a file
         message = messages
-        # The gameconstants COLS and ROWS change the original value an inheritances
+        # The gameconstants COLS and ROWS change the original value change an inheritances
         x = random.randint(1, gameconstants.COLS - 1)
         y = random.randint(1, gameconstants.ROWS - 1)
         position = Point(x, y)
@@ -99,7 +99,7 @@ def main():
         cast.add_actor("rocks", rock)
 
     for n in range(gameconstants.INIT_NUM_GEMS):
-        # The gameconstants COLS and ROWS change the original value an inheritances
+        # The gameconstants COLS and ROWS change the original value change an inheritances
         x = random.randint(1, gameconstants.COLS - 1)
         y = random.randint(1, gameconstants.ROWS - 1)
 
