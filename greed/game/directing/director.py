@@ -58,6 +58,7 @@ class Director:
         player = cast.get_first_actor("players")
         artifacts = cast.get_actors("artifacts")
         rocks = cast.get_actors("rocks")
+        rubys = cast.get_actors("rubys")
         its_alive = Restorer()
 
         max_x = self._display_service.get_width()
@@ -97,6 +98,18 @@ class Director:
                 if self._SCORE == 0:
                     self.__game_over = True
 
+        g = 0
+        for ruby in rubys:
+            g += 1
+            ruby.move_next(max_x, max_y)
+            if player.get_position().equals(ruby.get_position()):
+                g -= 1
+                self._SCORE += ruby.get_points()
+                
+                if self._SCORE == 0:
+                    self.__game_over = True
+                ruby.respawn()
+
         if a < artifact_count:
             its_alive.resurrect_artifact(cast = cast)
         if r < rock_count:
@@ -104,7 +117,7 @@ class Director:
 
         banner.set_text("Score: " + str(self._SCORE))
 
-    # The game over
+    # The game overrocks
 
     def _is_over(self):
         return self.__game_over

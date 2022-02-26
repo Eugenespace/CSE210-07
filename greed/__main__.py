@@ -4,6 +4,8 @@ import random
 from game.casting.actor import Actor
 from game.casting.artifact import Artifact
 from game.casting.cast import Cast
+from game.casting.ruby import Ruby
+from game.casting.rock import Rock
 
 from game.directing.director import Director
 
@@ -30,6 +32,8 @@ CAPTION = "Greed"
 WHITE = Color(255, 255, 255)
 DEFAULT_ARTIFACTS = 20
 DEFAULT_ARTIFACTS2 = 20
+INIT_NUM_ROCKS = 20
+INIT_NUM_GEMS = 5
 
 
 def main():
@@ -48,7 +52,7 @@ def main():
     # create the player
     x = int(MAX_X / 2)
     # different position. needs to go to the bottom of the page
-    y = int(MAX_Y-95)
+    y = int(MAX_Y / 1.1)
     position = Point(x, y)
 
     player = Actor()
@@ -114,6 +118,19 @@ def main():
         rock.set_position(position)
         rock.set_message(message)
         cast.add_actor("rocks", rock)
+
+    for n in range(INIT_NUM_GEMS):
+
+        x = random.randint(1, COLS - 1)
+        y = random.randint(1, ROWS - 1)
+        
+        position = Point(x, y)
+        position = position.scale(CELL_SIZE)
+        ruby = Ruby()
+        ruby.set_font_size(ROCK_SIZE)
+        ruby.set_position(position)
+        cast.add_actor("rubys", ruby)
+
 
     # start the game
     keyboard_service = KeyboardService(CELL_SIZE)

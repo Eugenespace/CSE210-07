@@ -1,6 +1,6 @@
 # GREED
 
-Let the GREED overcome you! Gather falling gems and enrich yourself, but watch out! Falling rocks will rob you of your hard earned riches. GREED is a fun-time collect and avoid game that will either leave you rich or leave you broke in more ways than one!
+Let the GREED overcome you! Gather falling rubys and enrich yourself, but watch out! Falling rocks will rob you of your hard earned riches. GREED is a fun-time collect and avoid game that will either leave you rich or leave you broke in more ways than one!
 
 
 
