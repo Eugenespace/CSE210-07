@@ -39,35 +39,31 @@ class Director:
                 self._display_service.close_window()
 
     def _get_inputs(self, cast):
-        """Gets directional input from the keyboard and applies it to the robot.
+        """Gets directional input from the keyboard and applies it to the player.
 
         Args:
             cast (Cast): The cast of actors.
         """
-        robot = cast.get_first_actor("robots")
+        player = cast.get_first_actor("players")
         velocity = self._keyboard_service.get_direction()
-        robot.set_velocity(velocity)
+        player.set_velocity(velocity)
 
     def _do_updates(self, cast):
-        """Updates the robot's position and resolves any collisions with artifacts.
+        """Updates the player's position and resolves any collisions with artifacts.
 
         Args:
             cast (Cast): The cast of actors.
         """
         banner = cast.get_first_actor("banners")
-        robot = cast.get_first_actor("robots")
+        player = cast.get_first_actor("players")
         artifacts = cast.get_actors("artifacts")
         rocks = cast.get_actors("rocks")
+        rubys = cast.get_actors("rubys")
         its_alive = Restorer()
 
-        
-        #artifact_count = cast.get_cast_count("artifacts")
-        #print(f"OUTSIDE LOOP COUNT = {artifact_count}")
-
-        banner.set_text("Score: " + str(self._SCORE))
         max_x = self._display_service.get_width()
         max_y = self._display_service.get_height()
-        robot.move_next(max_x, max_y)
+        player.move_next(max_x, max_y)
         artifact_count = 0
         rock_count = 0
         a = 0
@@ -85,9 +81,7 @@ class Director:
             artifact.set_velocity(Point(0, 5))
             artifact.move_next(max_x, max_y)
 
-            if robot.get_position().equals(artifact.get_position()):
-                message = self._SCORE
-                banner.set_text(message)
+            if player.get_position().equals(artifact.get_position()):
                 cast.remove_actor("artifacts", artifact)
                 a -= 1
                 self._SCORE += 1
@@ -96,9 +90,7 @@ class Director:
             r += 1
             rock.set_velocity(Point(0, 5))
             rock.move_next(max_x, max_y)
-            if robot.get_position().equals(rock.get_position()):
-                message = self._SCORE
-                banner.set_text(message)
+            if player.get_position().equals(rock.get_position()):
                 cast.remove_actor("rocks", rock)
                 r -= 1
                 self._SCORE -= 1
@@ -106,23 +98,23 @@ class Director:
                 if self._SCORE == 0:
                     self.__game_over = True
 
-        if a >= artifact_count and r >= rock_count:
-            pass
-        elif a < artifact_count and r < rock_count:
-            its_alive.resurrect_artifact(cast = cast, message = message)   
-            print(f"Added artifact Total: {artifact_count} a: {a}")
-            its_alive.resurrect_artifact2(cast = cast, message = message)
-        
-        elif a == artifact_count and r < rock_count:
-            its_alive.resurrect_artifact2(cast = cast, message = message)
-        
-        elif a < artifact_count and r == rock_count:
-            its_alive.resurrect_artifact(cast = cast, message = message) 
-        
+        for ruby in rubys:
+            ruby.move_next(max_x, max_y)
+            if player.get_position().equals(ruby.get_position()):
+                self._SCORE += ruby.get_points()
+                ruby.respawn()
+
+        if self._SCORE == 0:
+            self.__game_over = True
+
+        if a < artifact_count:
+            its_alive.resurrect_artifact(cast = cast)
+        if r < rock_count:
+            its_alive.resurrect_artifact2(cast = cast)
 
         banner.set_text("Score: " + str(self._SCORE))
 
-    # The game over
+    # The game overrocks
 
     def _is_over(self):
         return self.__game_over
