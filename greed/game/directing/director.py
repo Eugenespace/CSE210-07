@@ -98,17 +98,14 @@ class Director:
                 if self._SCORE == 0:
                     self.__game_over = True
 
-        g = 0
         for ruby in rubys:
-            g += 1
             ruby.move_next(max_x, max_y)
             if player.get_position().equals(ruby.get_position()):
-                g -= 1
                 self._SCORE += ruby.get_points()
-                
-                if self._SCORE == 0:
-                    self.__game_over = True
                 ruby.respawn()
+
+        if self._SCORE == 0:
+            self.__game_over = True
 
         if a < artifact_count:
             its_alive.resurrect_artifact(cast = cast)

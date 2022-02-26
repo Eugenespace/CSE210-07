@@ -2,6 +2,7 @@ import random
 
 from game.casting.actor import Actor
 from game.shared.point import Point
+import game.shared.gamecontants as gameconstants
 
 
 class Solid(Actor):
@@ -23,10 +24,10 @@ class Solid(Actor):
         Replace the object on the first line.
         """
 
-        x = random.randint(1, 60 - 1)
+        x = random.randint(1, gameconstants.COLS - 1)
         y = random.randint(0, 1)
         respawn_position = Point(x, y)
-        respawn_position = respawn_position.scale(15)
+        respawn_position = respawn_position.scale(gameconstants.CELL_SIZE)
         self.set_position(respawn_position)
 
 
