@@ -1,6 +1,7 @@
 from game.shared.point import Point
 from game.casting.restorer import Restorer
 
+
 class Director:
     """A person who directs the game. 
 
@@ -70,11 +71,10 @@ class Director:
         r = 0
 
         for artifact in artifacts:
-            artifact_count +=1
+            artifact_count += 1
 
         for rock in rocks:
             rock_count += 1
-
 
         for artifact in artifacts:
             a += 1
@@ -94,7 +94,7 @@ class Director:
                 cast.remove_actor("rocks", rock)
                 r -= 1
                 self._SCORE -= 1
-                
+
                 if self._SCORE == 0:
                     self.__game_over = True
 
@@ -108,9 +108,9 @@ class Director:
             self.__game_over = True
 
         if a < artifact_count:
-            its_alive.resurrect_artifact(cast = cast)
+            its_alive.resurrect_artifact(cast=cast)
         if r < rock_count:
-            its_alive.resurrect_artifact2(cast = cast)
+            its_alive.resurrect_artifact2(cast=cast)
 
         banner.set_text("Score: " + str(self._SCORE))
 
