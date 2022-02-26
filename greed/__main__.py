@@ -16,8 +16,8 @@ from game.services.display_service import DisplayService
 from game.shared.color import Color
 from game.shared.point import Point
 
-def main():
 
+def main():
     # create the cast
     cast = Cast()
 
@@ -69,17 +69,15 @@ def main():
         artifact.set_position(position)
         artifact.set_message(message)
         cast.add_actor("artifacts", artifact)
-        
-        
 
     # adding a second artifact. TESTING: it works! just has 2 Found Kitten messages. One for each symbol.
 
     for n in range(gameconstants.DEFAULT_ARTIFACTS2):
         # text = "*" #me: changed the symbols to display. CHR() = character function
-        text2 = "®" #chr(2588)  # box character?
+        text2 = "®"  # chr(2588)  # box character?
         # this needs to get the points from a function and display here instead of messages from a file
         message = messages
-
+        # The gameconstants COLS and ROWS change the original value an inheritances
         x = random.randint(1, gameconstants.COLS - 1)
         y = random.randint(1, gameconstants.ROWS - 1)
         position = Point(x, y)
@@ -100,17 +98,16 @@ def main():
         cast.add_actor("rocks", rock)
 
     for n in range(gameconstants.INIT_NUM_GEMS):
-
+        # The gameconstants COLS and ROWS change the original value an inheritances
         x = random.randint(1, gameconstants.COLS - 1)
         y = random.randint(1, gameconstants.ROWS - 1)
-        
+
         position = Point(x, y)
         position = position.scale(gameconstants.CELL_SIZE)
         ruby = Ruby()
         ruby.set_font_size(gameconstants.ROCK_SIZE)
         ruby.set_position(position)
         cast.add_actor("rubys", ruby)
-
 
     # start the game
     keyboard_service = KeyboardService(gameconstants.CELL_SIZE)
@@ -120,7 +117,7 @@ def main():
         gameconstants.MAX_Y,
         gameconstants.CELL_SIZE,
         gameconstants.FRAME_RATE
-        )
+    )
     director = Director(keyboard_service, display_service)
     director.start_game(cast)
 

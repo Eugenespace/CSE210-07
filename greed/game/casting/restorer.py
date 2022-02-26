@@ -6,12 +6,14 @@ from game.casting.artifact import Artifact
 from game.shared.color import Color
 from game.shared.point import Point
 
+
 class Restorer:
     """
     When a cast member is destroyed, the Restorer brings it back to life
     for unlimited gameplay.
-    
+
     """
+
     def __init__(self):
         """
         Constructs the Restorer class with the following settings:
@@ -30,6 +32,7 @@ class Restorer:
 
         self._x = random.randint(1, 60 - 1)
         self._y = random.randint(0, 1)
+        # The color and point here are inheritances
         self._position_start = Point(self._x, self._y)
         self._position = self._position_start.scale(15)
 
@@ -45,15 +48,14 @@ class Restorer:
         Args:
         cast: Receives the cast of actors
         message: Receives score 
-        """        
+        """
         self._artifact.set_text("*")
         self._artifact.set_font_size(25)
         self._artifact.set_color(self._color)
         self._artifact.set_position(self._position)
-        cast.add_actor("artifacts", self._artifact)    
-        #print("Added artifact") #Troubleshooter
-    
-    def resurrect_artifact2(self, cast): 
+        cast.add_actor("artifacts", self._artifact)
+
+    def resurrect_artifact2(self, cast):
         """
         resurrect_artifact2 takes cast and message and then gives parameters 
         for the creation of another artifact2 in the rocks group.
@@ -61,12 +63,9 @@ class Restorer:
         Args:
         cast: Receives the cast of actors
         message: Receives score 
-        """       
+        """
         self._artifact.set_text("®")
         self._artifact.set_font_size(30)
         self._artifact.set_color(self._gray)
         self._artifact.set_position(self._position)
-        cast.add_actor("rocks", self._artifact)    
-        #print("Added rock") #Troubleshooter
-
-        
+        cast.add_actor("rocks", self._artifact)
