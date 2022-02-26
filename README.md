@@ -58,9 +58,9 @@ root (project root folder)
 
 ## Authors
 ---
-* # Aaron Gusa 
-* # Eugene Kartey
-* # Sheyla Norton
-* # Owamamwen Ogunniyi
-* # Andre Pedrosa
+* # Aaron Gusa -
+* # Eugene Kartey - kar21016@byui.edu
+* # Sheyla Norton - nor21005@byui.edu
+* # Owamamwen Ogunniyi - ogunniyiowamamwen@gmail.com
+* # Andre Pedrosa - 
 ```
